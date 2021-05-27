@@ -144,6 +144,10 @@ else
   if [ -z "$PORTABLE" ]; then
     export CFLAGS="-march=native"
     export CXXFLAGS="-march=native"
+    if [ `arch` = aarch64 ]; then
+      export CFLAGS=""
+      export CXXFLAGS=""
+    fi
   fi
 
   build build_stage2
