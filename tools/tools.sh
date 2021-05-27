@@ -498,8 +498,8 @@ function build_xar()
 {
   pushd $BUILD_DIR &>/dev/null
 
-  while ! get_sources https://github.com/tpoechtrager/xar.git master; do sleep 1; done
-·
+  get_sources https://github.com/tpoechtrager/xar.git master
+  
   if [ $f_res -eq 1 ]; then
     pushd $CURRENT_BUILD_PROJECT_NAME/xar &>/dev/null
     CFLAGS+=" -w" \
