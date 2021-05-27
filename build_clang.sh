@@ -19,7 +19,7 @@ mkdir -p $BUILD_DIR
 source $BASE_DIR/tools/trap_exit.sh
 
 if [ -z "$CLANG_VERSION" ]; then
-  CLANG_VERSION=10.0.1
+  CLANG_VERSION=12.0.0
 fi
 
 if [ -z "$INSTALLPREFIX" ]; then
@@ -47,7 +47,11 @@ function set_package_link()
   if [ -n "$LLVM_PKG" ] && [[ $LLVM_PKG != https* ]]; then
     LLVM_PKG="https://releases.llvm.org/$LLVM_PKG"
     CLANG_PKG="https://releases.llvm.org/$CLANG_PKG"
+  else
+    LLVM_PKG="https://github.com/llvm/llvm-project/releases/download/llvmorg-$CLANG_VERSION/llvm-$CLANG_VERSION.src.tar.xz"
+    CLANG_PKG="https://github.com/llvm/llvm-project/releases/download/llvmorg-$CLANG_VERSION/clang-$CLANG_VERSION.src.tar.xz"
   fi
+
   popd &>/dev/null
 }
 
