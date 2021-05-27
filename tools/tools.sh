@@ -2,6 +2,22 @@
 
 export LC_ALL="C"
 
+retry() {
+    local -r -i max_attempts="$1"; shift
+    local -i attempt_num=1
+    until "$@"
+    do
+        if ((attempt_num==max_attempts))
+        then
+            echo "Attempt $attempt_num failed and there are no more attempts left!"
+            return 1
+        else
+            echo "Attempt $attempt_num failed! Trying again in $attempt_num seconds..."
+            sleep $((attempt_num++))
+        fi
+    done
+}
+
 function set_path_vars()
 {
   if [ -n "$OSXCROSS_VERSION" ]; then
@@ -295,7 +311,7 @@ function git_clone_repository
   fi
 
   if [ ! -d $project_name ]; then
-    git clone $url $project_name $git_extra_opts
+    retry 100 git clone $url $project_name $git_extra_opts
   fi
 
   pushd $project_name &>/dev/null
