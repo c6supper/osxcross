@@ -300,17 +300,18 @@ function git_clone_repository
 
   pushd $project_name &>/dev/null
 
-  git reset --hard &>/dev/null
-  git clean -fdx &>/dev/null
+# it's docker need to do these actions
+#   git reset --hard &>/dev/null
+#   git clean -fdx &>/dev/null
 
-  if git show-ref refs/heads/$branch &>/dev/null; then
-    git fetch origin $branch
-  else
-    git fetch origin $branch:$branch $git_extra_opts
-  fi
+#   if git show-ref refs/heads/$branch &>/dev/null; then
+#     git fetch origin $branch
+#   else
+#     git fetch origin $branch:$branch $git_extra_opts
+#   fi
   
-  git checkout $branch
-  git pull origin $branch
+#   git checkout $branch
+#   git pull origin $branch
 
   local new_hash=$(git rev-parse HEAD)
   local old_hash=""
